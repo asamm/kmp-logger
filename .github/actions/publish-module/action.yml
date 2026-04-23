@@ -1,0 +1,75 @@
+name: Publish
+description: >
+  Publishes selected kmp-logger variants to GitHub Packages. Each flag is independent —
+  callers pick the exact set of publications. This lets CI split iOS (macOS runner) from
+  everything else (ubuntu runner). Requires actions/checkout + setup-build to have run.
+inputs:
+  publish-metadata:
+    description: 'Publish Kotlin Multiplatform metadata (.module manifest + common sources).'
+    required: false
+    default: 'false'
+  publish-jvm:
+    description: 'Publish JVM Maven artifact.'
+    required: false
+    default: 'false'
+  publish-android:
+    description: 'Publish Android Maven artifact (AGP 9.x, single variant).'
+    required: false
+    default: 'false'
+  publish-ios:
+    description: 'Publish iOS Maven artifacts (iosArm64 + iosSimulatorArm64). Requires macOS runner.'
+    required: false
+    default: 'false'
+  publish-js-maven:
+    description: 'Publish JS Maven artifact to GitHub Packages Maven.'
+    required: false
+    default: 'false'
+  publish-npm:
+    description: 'Publish JS package to GitHub Packages npm registry.'
+    required: false
+    default: 'false'
+  is-release:
+    description: 'Release (true) or snapshot with commit-short-SHA suffix (false).'
+    required: false
+    default: 'false'
+  gpr-token:
+    description: 'GitHub token with write:packages permission.'
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        TASKS=""
+        if [ "${{ inputs.publish-metadata }}" = "true" ]; then
+          TASKS="$TASKS publishKotlinMultiplatformPublicationToGitHubPackagesRepository"
+        fi
+        if [ "${{ inputs.publish-jvm }}" = "true" ]; then
+          TASKS="$TASKS publishJvmPublicationToGitHubPackagesRepository"
+        fi
+        if [ "${{ inputs.publish-android }}" = "true" ]; then
+          TASKS="$TASKS publishAndroidPublicationToGitHubPackagesRepository"
+        fi
+        if [ "${{ inputs.publish-ios }}" = "true" ]; then
+          TASKS="$TASKS publishIosArm64PublicationToGitHubPackagesRepository"
+          TASKS="$TASKS publishIosSimulatorArm64PublicationToGitHubPackagesRepository"
+        fi
+        if [ "${{ inputs.publish-js-maven }}" = "true" ]; then
+          TASKS="$TASKS publishJsPublicationToGitHubPackagesRepository"
+        fi
+        if [ "${{ inputs.publish-npm }}" = "true" ]; then
+          TASKS="$TASKS publishJsPackageToGithubRegistry"
+        fi
+        if [ -z "$TASKS" ]; then
+          echo "::error::No publish flags set — nothing to do."
+          exit 1
+        fi
+        GRADLE_ARGS=""
+        if [ "${{ inputs.is-release }}" != "true" ]; then
+          GRADLE_ARGS="-PisSnapshot -PsnapshotSuffix=$(git rev-parse --short HEAD)"
+        fi
+        echo "Running: ./gradlew $TASKS $GRADLE_ARGS"
+        ./gradlew $TASKS $GRADLE_ARGS
+      env:
+        GPR_USERNAME: ${{ github.actor }}
+        GPR_TOKEN: ${{ inputs.gpr-token }}

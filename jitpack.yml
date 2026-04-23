@@ -1,0 +1,6 @@
+jdk:
+  - openjdk17
+
+install:
+  # JitPack default is `./gradlew install`. We publish via maven-publish instead.
+  - ./gradlew publishToMavenLocal

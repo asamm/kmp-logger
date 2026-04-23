@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main, development]
+  pull_request:
+    branches: [master, main, development]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  # Android, JVM, JS — runs on ubuntu for speed + cost. iOS is skipped here thanks to
+  # kotlin.native.ignoreDisabledTargets=true in gradle.properties, so `build` succeeds cleanly.
+  build-non-ios:
+    name: Build (Android + JVM + JS)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-build
+
+      - name: Gradle build + tests
+        shell: bash
+        run: ./gradlew build
+
+  # iOS — macOS runners are ~10× cost of ubuntu, so this job compiles iOS targets only
+  # (not the full `build`). Skips Android/JVM/JS which the non-iOS job already covered.
+  build-ios:
+    name: Compile iOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-build
+
+      - name: Compile iosArm64 + iosSimulatorArm64
+        shell: bash
+        run: ./gradlew compileKotlinIosArm64 compileKotlinIosSimulatorArm64

@@ -1,0 +1,23 @@
+[versions]
+# Project
+version = "1.0.0"
+
+# Android — aligned with locus-core-2
+androidCompileSdk = "36"
+androidMinSdk = "24"
+androidGradlePlugin = "9.1.1"
+
+# Kotlin — aligned with locus-core-2
+# https://kotlinlang.org/docs/releases.html
+kotlin = "2.3.20"
+
+# Publishing
+# https://plugins.gradle.org/plugin/dev.petuska.npm.publish
+npmPublish = "3.5.3"
+
+[plugins]
+# AGP 9.x: use the KMP-library variant when combined with Kotlin Multiplatform.
+# https://developer.android.com/kotlin/multiplatform/plugin
+androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+npmPublish = { id = "dev.petuska.npm.publish", version.ref = "npmPublish" }
