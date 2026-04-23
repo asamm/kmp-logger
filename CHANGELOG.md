@@ -5,10 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.0] - TBD
+## [0.9.0] - 2026-04-24
 
-Initial public release. Extracted from `asamm/kmp-commons:logger` module and relicensed under
-Apache 2.0.
+Pre-release for end-to-end pipeline validation (JitPack, GitHub Packages, Maven variant resolution
+from real consumers). Functionally equivalent to the planned v1.0.0; bumped to v1.0.0 once a few
+integration cycles confirm everything is stable.
+
+Extracted from `asamm/kmp-commons:logger` module and relicensed under Apache 2.0.
 
 ### Added
 - Multiplatform logger targeting Android, JVM, iOS (arm64 + simulator arm64), and JS (browser)
