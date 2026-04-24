@@ -9,7 +9,7 @@ Used across Asamm projects (Locus Map, Locus GIS, Locus API).
 
 ## Install
 
-### JitPack (public, anonymous)
+### JitPack (public, anonymous) — Android / JVM / JS only
 
 ```kotlin
 // settings.gradle.kts
@@ -26,6 +26,12 @@ dependencies {
     implementation("com.github.asamm:kmp-logger:0.9.0")
 }
 ```
+
+> ⚠️ **iOS is not published via JitPack.** The iOS klib publish step pushes the JitPack
+> build past its container status-check timeout, making releases flaky. JitPack therefore
+> only ships Android, JVM, JS, and the Kotlin Multiplatform metadata. **Kotlin/Multiplatform
+> projects targeting iOS must consume `kmp-logger` from [GitHub Packages](#github-packages-asamm-team)
+> instead** — that channel includes all platforms.
 
 ### GitHub Packages (Asamm team)
 

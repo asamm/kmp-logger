@@ -1,6 +1,9 @@
 jdk:
   - openjdk17
 
+# Skip iOS klib publishing on JitPack's Linux runners. The Gradle build would succeed
+# (Kotlin/Native cross-compiles), but the extra ~2 min pushes JitPack past its container
+# status-check timeout, producing a flaky "Error building" result. iOS consumers should
+# resolve from GitHub Packages instead — see README.
 install:
-  # JitPack default is `./gradlew install`. We publish via maven-publish instead.
-  - ./gradlew publishToMavenLocal
+  - ./gradlew publishToMavenLocal -x :publishIosArm64PublicationToMavenLocal -x :publishIosSimulatorArm64PublicationToMavenLocal
