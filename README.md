@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.github.asamm:kmp-logger:0.9.0")
+    implementation("com.github.asamm:kmp-logger:0.9.1")
 }
 ```
 
@@ -51,14 +51,14 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    implementation("com.asamm.kmp:kmp-logger:0.9.0")
+    implementation("com.asamm.kmp:kmp-logger:0.9.1")
 }
 ```
 
 Kotlin/Multiplatform consumers resolve the correct platform variant automatically via Gradle
 module metadata. Android-only or JVM-only (non-KMP) consumers can also depend on a specific
-platform artifact directly: `com.asamm.kmp:kmp-logger-android:0.9.0`,
-`com.asamm.kmp:kmp-logger-jvm:0.9.0`, `com.asamm.kmp:kmp-logger-js:0.9.0`.
+platform artifact directly: `com.asamm.kmp:kmp-logger-android:0.9.1`,
+`com.asamm.kmp:kmp-logger-jvm:0.9.1`, `com.asamm.kmp:kmp-logger-js:0.9.1`.
 
 ## Usage
 

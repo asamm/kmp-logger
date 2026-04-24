@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-04-24
+
+### Changed
+- JitPack no longer publishes iOS klibs — avoids container status-check timeout on
+  JitPack's Linux runners. JitPack now ships Android, JVM, JS, and KMP metadata only.
+  iOS consumers must resolve from GitHub Packages.
+
 ## [0.9.0] - 2026-04-24
 
 Pre-release for end-to-end pipeline validation (JitPack, GitHub Packages, Maven variant resolution
