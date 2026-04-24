@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+- Generated `Module.kt` with `getVersion()`. Runtime version queries are not a core logger
+  need — the version is already part of the published artifact coordinate
+  (`com.asamm.kmp:kmp-logger:<version>`). Dropped `GenerateModuleFileTask` from `buildSrc/`
+  and the `generateModuleFile` task + source-set wiring from `build.gradle.kts`.
+- **API-breaking (in theory):** `com.asamm.kmp.logger.getVersion()` is no longer exported.
+  No known consumer — the function existed only in v0.9.x pre-release validation builds.
+
 ## [0.9.1] - 2026-04-24
 
 ### Changed

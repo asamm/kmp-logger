@@ -1,4 +1,3 @@
-import com.asamm.gradle.GenerateModuleFileTask
 import com.asamm.gradle.moduleVersion
 import dev.petuska.npm.publish.task.NpmPublishTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -17,13 +16,6 @@ val moduleVersion = moduleVersion(libs.versions.version.get())
 
 group = modulePackage
 version = moduleVersion
-
-// Metadata generator — produces a Module.kt with getVersion() in commonMain.
-val generateModuleFile by tasks.registering(GenerateModuleFileTask::class) {
-    packageValue.set("$modulePackage.$moduleName")
-    versionValue.set(moduleVersion)
-    outputDir.set(layout.buildDirectory.dir("generated/module"))
-}
 
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -57,11 +49,7 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            kotlin.srcDir(
-                files(generateModuleFile.map { it.outputDir }).builtBy(generateModuleFile)
-            )
-        }
+        val commonMain by getting
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
