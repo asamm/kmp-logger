@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-05-10
+
+First stable release. The 0.9.x line ran end-to-end through four locus-core integration PRs
+(#679, #680, #695, #696) and one kmp-commons consumer migration (PR #19) without API
+changes. The DSL surface, `ILogger` contract, `LogCategory`/`LogPriority` types, and
+per-platform `LoggerDefault` sinks are now considered stable.
+
 ### Removed
 - Generated `Module.kt` with `getVersion()`. Runtime version queries are not a core logger
   need — the version is already part of the published artifact coordinate
