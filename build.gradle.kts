@@ -34,6 +34,14 @@ kotlin {
                 }
             }
         }
+
+        // Bundle consumer-rules.pro into the AAR — `publish = true` is required.
+        optimization {
+            consumerKeepRules.apply {
+                publish = true
+                file("consumer-rules.pro")
+            }
+        }
     }
 
     iosArm64()

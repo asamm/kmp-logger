@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-05-10
+
+### Fixed
+- Auto-tag returns obfuscated names (`d`, `LOC-d`) in R8-shrunk builds. AAR now ships a
+  consumer `-keepnames` rule for `com.asamm.kmp.logger.**`.
+
 ## [1.0.0] - 2026-05-10
 
 First stable release. The 0.9.x line ran end-to-end through four locus-core integration PRs
