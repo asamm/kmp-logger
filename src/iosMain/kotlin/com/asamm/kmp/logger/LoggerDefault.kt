@@ -6,7 +6,10 @@ actual object LoggerDefault : ILogger {
 
     private fun log(level: String, tag: String, msg: String, ex: Throwable? = null) {
         val errorText = ex?.let { "\n${it.stackTraceToString()}" } ?: ""
-        NSLog("%@", "[$level][$tag] $msg$errorText")
+        // Do NOT pass the text as a vararg (`NSLog("%@", text)`) — a Kotlin String is not bridged
+        // to NSString in C varargs and the call crashes with SIGSEGV. Use the text as the format
+        // itself, with `%` escaped so it is printed verbatim.
+        NSLog("[$level][$tag] $msg$errorText".replace("%", "%%"))
     }
 
     actual override fun v(tag: String, msg: String) {

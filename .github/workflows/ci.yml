@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: ./gradlew build
 
-  # iOS — macOS runners are ~10× cost of ubuntu, so this job compiles iOS targets only
+  # iOS — macOS runners are ~10× cost of ubuntu, so this job runs iOS targets only
   # (not the full `build`). Skips Android/JVM/JS which the non-iOS job already covered.
   build-ios:
     name: Compile iOS
@@ -36,6 +36,6 @@ jobs:
 
       - uses: ./.github/actions/setup-build
 
-      - name: Compile iosArm64 + iosSimulatorArm64
+      - name: Compile iosArm64 + test on iOS simulator
         shell: bash
-        run: ./gradlew compileKotlinIosArm64 compileKotlinIosSimulatorArm64
+        run: ./gradlew compileKotlinIosArm64 iosSimulatorArm64Test

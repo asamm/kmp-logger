@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- iOS: `LoggerDefault` crashed with SIGSEGV on every call. `NSLog("%@", text)` passed a Kotlin
+  `String` as a C vararg, which is not bridged to `NSString`. The text is now used as the format
+  itself with `%` escaped.
+
+### Added
+- `iosTest` source set with sanity tests of the iOS actuals (NSLog output, format-specifier
+  safety, unicode, exceptions, multi-threaded logging), run on the simulator via
+  `./gradlew iosSimulatorArm64Test`.
+
 ## [1.0.1] - 2026-05-10
 
 ### Fixed
