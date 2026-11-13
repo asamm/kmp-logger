@@ -102,11 +102,11 @@ Logger.registerLogger(object : ILogger {
 
 If no custom logger is registered, the module falls back to a platform-appropriate default:
 
-| Platform | Backend |
-|---|---|
-| Android | `android.util.Log` (Logcat) |
-| JVM | `java.util.logging.Logger` + `ConsoleHandler` |
-| iOS | `println()` |
+| Platform | Backend                                          |
+|---|--------------------------------------------------|
+| Android | `android.util.Log` (Logcat)                      |
+| JVM | `java.util.logging.Logger` + `ConsoleHandler`    |
+| iOS | `NSLog()`                                        |
 | JS | `console.log` / `console.warn` / `console.error` |
 
 ## Migrating from `logger-asamm`
